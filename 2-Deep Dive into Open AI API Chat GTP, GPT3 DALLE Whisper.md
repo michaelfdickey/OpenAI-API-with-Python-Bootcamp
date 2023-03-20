@@ -335,3 +335,44 @@ could choose 'begin' OR 'ended' because both are likely
 
 to try to overcome this, it uses re-enforcement learning to try to overcome this
 
+# 2 -11 Open API Costs
+
+Pricing
+
+free API credits for the first 3 months
+
+cost has been decreasing dramatically
+
+you pay only for what you use and can check  your usage at any time
+
+also manage spending with usage limits
+
+![image-20230320153821450](./image-20230320153821450.png)
+
+A token is a chunk of characters.  AI models process by breaking down into tokens
+
+100 tokens = 75 words
+
+Tokens...
+
+interaction limited to a max # of tokens, GhatGPT is 4096
+
+- tokens are pieces of words. Input is broken down into words. 
+- can be words or chunks of characters
+
+the open ai python library tiktoken will allow you to check
+
+or the tokenizer:
+
+![image-20230320154134707](./image-20230320154134707.png)
+
+tokens are strange
+
+![image-20230320161618151](./image-20230320161618151.png)
+
+## To check the exact number of tokens used by an api call:
+
+To check the exact number of tokens consumed, check the `usage` field in the API response
+
+![image-20230320161835380](./image-20230320161835380.png)
+
