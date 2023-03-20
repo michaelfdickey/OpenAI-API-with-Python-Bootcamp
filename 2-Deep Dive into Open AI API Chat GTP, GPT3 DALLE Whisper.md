@@ -268,3 +268,70 @@ messages = [
 these can change frequently , stay up to date by visiting https://platform.openai.com/docs/guides/chat/introduction
 
 ![image-20230318175932415](./image-20230318175932415.png)
+
+# 2-10) Diving into ChatGPT
+
+so far we've used the API to get responses
+
+let's dive deeper into ChatGPT
+
+the models focus on 
+
+- large language models (LLM)
+- Self-attention mechanisms
+- Reinforcement Learning from Human Feedback (RLHF)
+
+GPT = "Generative pre-trained transformer"
+
+it's a deep learning model that adopts the mechanism of self-attention, to differentiate the sig of each part of the input data using weights
+
+LLMs increase their capability as the size of their input and parameter space increase
+
+Issues with LLM:
+
+- capability
+- alignment
+
+Capability refers to models ability to perform a specific task or how well it is able to opimize it's objective function
+
+Alignment is concerned wiht what we want the model to do vs what is has been trained to do. 
+
+LLMs such as the GPT-3 models are misaligned because they are trained on mass amounts of data from the internet, may not always produce correct output. 
+
+it's a probability function of word sequences
+
+Alignment issues in LLMs manifest as:
+
+- model hallucinations
+- lack of interpretability (how did the model get to that?)
+- biased or toxic output
+
+GPT-3 famile are generative models
+
+Core techniques are 
+
+- next token prediction
+- masked language modeling
+
+Next token prediction means the model is given a sequence of words as input and is asked to predict in a reasonable human like way the next word
+
+Masked Language modeling, words in input are replaced with special tokens, such as [MASK] the model should predict the correct word that should be inserted in the place of the [MASK]
+
+for example:
+
+```
+The area of a circle is [MASK] times the radius squared
+```
+
+the model should say pi
+
+but
+
+```
+The roman Empire [mask] with the reign of Agustus
+```
+
+could choose 'begin' OR 'ended' because both are likely
+
+to try to overcome this, it uses re-enforcement learning to try to overcome this
+
