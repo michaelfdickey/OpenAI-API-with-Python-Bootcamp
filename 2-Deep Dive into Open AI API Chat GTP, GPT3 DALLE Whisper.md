@@ -376,3 +376,119 @@ To check the exact number of tokens consumed, check the `usage` field in the API
 
 ![image-20230320161835380](./image-20230320161835380.png)
 
+
+
+# 2 - 13 Open AI Model Completion Parameters
+
+let's talk about the parameters
+
+### temperature
+
+we're starting with:
+
+```
+import openai
+import os 
+import getpass
+
+key = getpass.getpass(prompt='Enter your OpenAI API key: ')
+openai.api_key = key
+
+prompt = input('Enter your text: ')
+
+# roles => system, user, assistant
+messages = [
+    {'role': 'system', 'content':'you are a good and smart assistant'},
+    {'role': 'user', 'content':prompt},
+]
+response = openai.ChatCompletion.create(
+    model = 'gpt-3.5-turbo',
+    messages = messages,
+    temperature = 0.8,
+    max_tokens = 1000
+)
+
+print(response['choices'][0]['message']['content'])
+```
+
+temperature controls how much randomness is in the output
+
+OpenAI models are non-deterministic, the same input can produce different outputs. 
+
+temp between 0 - 2, default is 1
+
+if 0, output will be mostly deterministic, if 2, more diverse but prone to errors
+
+use a lower temperature if there are just a few answers, a higher temperature if you want to create ideas or a story.
+
+```
+think of it as the creativeness of the model
+```
+
+### top_p 
+
+another option is `top_p`  also called `nuclear sampling` 
+
+it's an alternative to temperature
+
+value is between 0 and 1, if you set it to 0.2 only the top 20 tokens are used.  1 uses all tokens. 0.1 says use only the 10% most common tokens.  
+
+generally you should alter 1 or the other but not both `top_p` and `temperature`
+
+```
+prompt = 'write a 1 sentance review of George Orwells 1984'
+
+top_p = 0.1,
+
+George Orwell's 1984 is a haunting and thought-provoking dystopian novel that explores the dangers of totalitarianism and the importance of individual freedom.
+```
+
+```
+top_p = .8
+
+George Orwell's 1984 is a powerful and thought-provoking novel that presents a dystopian society where individualism and free thinking are suppressed by a totalitarian government.
+```
+
+### max_tokens
+
+another parameter is `max_tokens` this is the max number of tokens in the completion tokens from the response object - the max allowed for the generated answer
+
+for 3.5 default is 4,096 - tokens in prompt
+
+you can set it lower to an arbitrary number, but can cause issues if it's too low. 
+
+### n
+
+`n` is the number of chat completion answers, by default it's 1. you can increase this to get more responses, e.g. give me 4 names for an ice cream shop
+
+```
+]
+response = openai.ChatCompletion.create(
+    model = 'gpt-3.5-turbo',
+    messages = messages,
+    temperature = 1,
+    top_p = 0.8,
+    max_tokens = 1000
+    n = 5
+)
+```
+
+the object returned is different though, so you need to print both:
+
+```
+]
+response = openai.ChatCompletion.create(
+    model = 'gpt-3.5-turbo',
+    messages = messages,
+    temperature = 1,
+    top_p = 0.8,
+    max_tokens = 1000,
+    n = 2
+)
+
+print(response['choices'][0]['message']['content'])
+print(response['choices'][1]['message']['content'])
+```
+
+
+
